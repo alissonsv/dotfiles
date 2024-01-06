@@ -1,0 +1,21 @@
+export ZSH="/home/alisson/.oh-my-zsh"
+ZSH_THEME="agnoster"
+DEFAULT_USER="alisson"
+
+plugins=(docker git git-commit colored-man-pages asdf gh)
+
+source $ZSH/oh-my-zsh.sh
+
+export LC_ALL=en_US.UTF-8
+export LANG=en_US.UTF-8
+export EDITOR=nvim
+export PATH=/home/alisson/.local/bin:$PATH
+
+# Load ssh keys:
+# https://wiki.archlinux.org/title/SSH_keys
+eval $(keychain --eval --quiet id_rsa)
+
+# tabtab source for packages
+# uninstall by removing these lines
+[[ -f ~/.config/tabtab/__tabtab.zsh ]] && . ~/.config/tabtab/__tabtab.zsh || true
+
