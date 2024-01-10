@@ -23,3 +23,7 @@ vim.keymap.set('', '<leader>p', ':bprevious<cr>')
 vim.keymap.set('', '<leader>d', ':bdelete<cr>')
 
 vim.keymap.set('n', '<leader>t', ':ToggleTerm<cr>')
+
+vim.keymap.set('n', 'gd', function() vim.lsp.buf.definition() end)
+vim.keymap.set("n", "K", function() vim.lsp.buf.hover() end)
+vim.keymap.set("n", "<C-e>", function() vim.diagnostic.open_float() end)

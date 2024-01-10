@@ -40,7 +40,19 @@ return {
 	{'hrsh7th/cmp-path'},
 	{'hrsh7th/cmp-nvim-lua'},
 	{'hrsh7th/cmp-buffer'},
-	{'L3MON4D3/LuaSnip'},
+	{
+    'L3MON4D3/LuaSnip',
+    dependencies = {
+      'friendly-snippets'
+    },
+    config = function()
+      require("luasnip.loaders.from_vscode").lazy_load()
+    end
+  },
+  {
+    'rafamadriz/friendly-snippets',
+    lazy = true
+  },
 	{
 		"nvim-tree/nvim-tree.lua",
 		version = "*",
@@ -116,5 +128,13 @@ return {
 		config = function()
 			require("config.bufferline")
 		end
+	},
+	{
+		'RRethy/vim-illuminate'
+	},
+	{
+		'windwp/nvim-autopairs',
+    event = "InsertEnter",
+    opts = {} -- this is equalent to setup({}) function
 	}
 }
