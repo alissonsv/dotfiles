@@ -136,5 +136,12 @@ return {
 		'windwp/nvim-autopairs',
     event = "InsertEnter",
     opts = {} -- this is equalent to setup({}) function
-	}
+	},
+  {
+    'lukas-reineke/indent-blankline.nvim',
+    branch = '2.20.4',
+    config = function()
+      require 'config.indent_blankline'
+    end
+  }
 }
