@@ -139,7 +139,7 @@ return {
 	},
   {
     'lukas-reineke/indent-blankline.nvim',
-    branch = '2.20.4',
+    version = '2.20.4',
     config = function()
       require 'config.indent_blankline'
     end

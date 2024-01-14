@@ -19,7 +19,12 @@ secondary = #e60053
 alert = #bd2c40
 
 [bar/topbar]
+{{- if eq .chezmoi.hostname "fire" }}
 monitor = ${env:MONITOR:DisplayPort-0}
+{{- end }}
+{{- if eq .chezmoi.hostname "wind" }}
+monitor = ${env:MONITOR:eDP1}
+{{- end }}
 ;width = 94%
 height = 27
 offset-x = 0
@@ -55,7 +60,12 @@ font-4 = "Font Awesome 6 Free:style=Solid:pixelsize=10;1"
 
 modules-left = i3
 modules-center = date 
+{{- if eq .chezmoi.hostname "fire" }}
 modules-right = spotify cpu cpu-temp memory wlan eth pulseaudio
+{{- end }}
+{{- if eq .chezmoi.hostname "wind" }}
+modules-right = spotify cpu cpu-temp memory wlan eth pulseaudio battery
+{{- end }}
 
 tray-position = right
 ;tray-detached = true
@@ -229,10 +239,10 @@ label = %percentage_used%%
 
 [module/wlan]
 type = internal/network
-interface = wlp8s0f3u1
+interface = wlp2s0
 interval = 3.0
 format-connected = <label-connected>
-label-connected = " %essid% - %local_ip%"
+label-connected = " %local_ip%"
 
 [module/eth]
 type = internal/network
@@ -297,8 +307,8 @@ click-right = pavucontrol
 
 [module/battery]
 type = internal/battery
-battery = BAT0
-adapter = AC0
+battery = BAT1
+adapter = ACAD
 full-at = 98
 
 format-charging = <animation-charging> <label-charging>

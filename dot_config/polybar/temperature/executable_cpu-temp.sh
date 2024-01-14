@@ -1,3 +1,4 @@
 #!/bin/sh
 
-sensors | grep 'Tctl:' | tr -d '+' | awk '{print $2}'
+sensors 2>/dev/null | grep -oP '\+\K\d+(\.\d+)?' | head -n1
+
