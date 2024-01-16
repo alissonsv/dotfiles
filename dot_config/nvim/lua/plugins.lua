@@ -143,5 +143,8 @@ return {
     config = function()
       require 'config.indent_blankline'
     end
+  },
+  {
+    'ThePrimeagen/vim-be-good'
   }
 }
