@@ -3,7 +3,13 @@ vim.opt.relativenumber = true
 lvim.colorscheme = 'github_dark_dimmed'
 lvim.plugins = {
   { 'projekt0n/github-nvim-theme' },
-  { 'wakatime/vim-wakatime' }
+  { 'wakatime/vim-wakatime' },
+  {
+    "iamcco/markdown-preview.nvim",
+    cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
+    ft = { "markdown" },
+    build = function() vim.fn["mkdp#util#install"]() end,
+  }
 }
 
 lvim.format_on_save = true
