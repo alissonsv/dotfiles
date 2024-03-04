@@ -1,150 +1,302 @@
-return {
-	{ 
-		'projekt0n/github-nvim-theme',
-		lazy = false,
-		priority = 1000,
-		config = function()
-			vim.cmd('colorscheme github_dark_dimmed')
-		end
-	},
-	{
-		'nvim-telescope/telescope.nvim', tag = '0.1.5',
-		dependencies = { 'nvim-lua/plenary.nvim' },
-		init = function()
-			require 'config.telescope'
-		end
-	},
-	{
-		"nvim-treesitter/nvim-treesitter",
-		build = ":TSUpdate",
-		init = function()
-			require 'config.treesitter'
-		end
-	},
-	{
-		'lewis6991/gitsigns.nvim',
-		config = function()
-			require 'config.gitsigns'
-		end
-	},
-	{
-		'VonHeikemen/lsp-zero.nvim',
-		priority = 1000,
-		branch = 'v3.x',
-	},
-	{'williamboman/mason.nvim'},
-	{'williamboman/mason-lspconfig.nvim'},
-	{'neovim/nvim-lspconfig'},
-	{'hrsh7th/cmp-nvim-lsp'},
-	{'hrsh7th/nvim-cmp'},
-	{'hrsh7th/cmp-path'},
-	{'hrsh7th/cmp-nvim-lua'},
-	{'hrsh7th/cmp-buffer'},
-	{
-    'L3MON4D3/LuaSnip',
+require('lazy').setup({
+  'tpope/vim-fugitive',
+  'tpope/vim-rhubarb',
+  'tpope/vim-sleuth',
+
+  -- theme
+  {
+    'projekt0n/github-nvim-theme',
+    priority = 1000,
+    config = function()
+      vim.cmd('colorscheme github_dark_dimmed')
+    end
+  },
+
+  -- tree
+  -- {
+  --   'nvim-tree/nvim-tree.lua',
+  --   dependencies = {
+  --     'nvim-tree/nvim-web-devicons'
+  --   },
+  --   config = function()
+  --     require('config.nvimtree')
+  --   end
+  -- },
+
+  -- comment
+  {
+    'numToStr/Comment.nvim',
+    opts = {}
+  },
+
+  -- Telescope
+  {
+    'nvim-telescope/telescope.nvim',
+    event = 'VeryLazy',
+    branch = '0.1.x',
     dependencies = {
-      'friendly-snippets'
+      'nvim-lua/plenary.nvim',
+      'nvim-telescope/telescope-ui-select.nvim',
+      {
+        -- telescope sorter to significantly improve sorting performance
+        'nvim-telescope/telescope-fzf-native.nvim',
+        build = 'make'
+      },
+      {
+        -- telescope file browser
+        'nvim-telescope/telescope-file-browser.nvim',
+        dependencies = {
+          'nvim-lua/plenary.nvim'
+        }
+      }
     },
     config = function()
-      require("luasnip.loaders.from_vscode").lazy_load()
+      require('config.telescope')
     end
   },
+
+  -- LSP
   {
-    'rafamadriz/friendly-snippets',
-    lazy = true
+    'neovim/nvim-lspconfig',
+    dependencies = {
+      -- Automatically install LSPs and related tools to stdpath for neovim
+      'williamboman/mason.nvim',
+      'williamboman/mason-lspconfig.nvim',
+      -- auto install daps
+      'jay-babu/mason-nvim-dap.nvim',
+      'WhoIsSethDaniel/mason-tool-installer.nvim',
+      -- Useful status updates for LSP.
+      {
+        'j-hui/fidget.nvim',
+        opts = {
+          progress = {
+            ignore = { 'pylsp' }
+          }
+        }
+      }
+    },
+    config = function()
+      require('config.lsp')
+    end
   },
-	{
-		"nvim-tree/nvim-tree.lua",
-		version = "*",
-		lazy = false,
-		dependencies = {
-			"nvim-tree/nvim-web-devicons",
-		},
-		config = function()
-			require('config.nvim_tree')
-		end,
-	},
-	{ 'wakatime/vim-wakatime' },
-	{
-		'nvim-lualine/lualine.nvim',
-		dependencies = { 'nvim-tree/nvim-web-devicons' },
-		config = function()
-			require('lualine').setup {
-				options = { theme = 'ayu_mirage' }
-			}
-		end
-	},
-	{
-		"folke/which-key.nvim",
-		event = "VeryLazy",
-		init = function()
-			vim.o.timeout = true
-			vim.o.timeoutlen = 1000
-		end,
-		opts = {
-			mode = "n",
-			prefix = "<leader>",
-			buffer = nil,
-			silent = true,
-			noremap = true,
-			nowait = true
-		},
-		vopts = {
-			mode = "v",
-			prefix = "<leader>",
-			buffer = nil,
-			silent = true,
-			noremap = true,
-			nowait = true
-		}
-	},
-	{
-		'ahmedkhalf/project.nvim',
-		opts = {
-			manual_mode = false
-		},
-		event = 'VeryLazy',
-		config = function (_, opts)
-			opts.detection_methods = { "lsp", "pattern" }
-			opts.patterns = {
-				".git",
-				".hg",
-				".svn",
-			}
-			require("project_nvim").setup(opts)
-			require("telescope").load_extension("projects")
-		end,
-		keys = {
-			{ "<leader>fp", "<Cmd>Telescope projects<CR>", desc = "Projects" },
-		},
-	},
-	{'akinsho/toggleterm.nvim', version = "*", config = true},
-	{
-		'akinsho/bufferline.nvim',
-		version = '*',
-		dependencies = {
-			'nvim-tree/nvim-web-devicons'
-		},
-		config = function()
-			require("config.bufferline")
-		end
-	},
-	{
-		'RRethy/vim-illuminate'
-	},
-	{
-		'windwp/nvim-autopairs',
-    event = "InsertEnter",
-    opts = {} -- this is equalent to setup({}) function
-	},
+
+  -- Autocompletion
+  {
+    'hrsh7th/nvim-cmp',
+    event = 'InsertEnter',
+    dependencies = {
+      -- Snippet Engine & its associated nvim-cmp source
+      {
+        'L3MON4D3/LuaSnip',
+        build = (function()
+          -- Build Step is needed for regex support in snippets
+          -- This step is not supported in many windows environments
+          -- Remove the below condition to re-enable on windows
+          if vim.fn.has 'win32' == 1 or vim.fn.executable 'make' == 0 then
+            return
+          end
+          return 'make install_jsregexp'
+        end)(),
+      },
+
+      -- Adds other completion capabilities.
+      --  nvim-cmp does not ship with all sources by default. They are split
+      --  into multiple repos for maintenance purposes.
+      'hrsh7th/cmp-nvim-lsp',
+      'hrsh7th/cmp-path',
+      'saadparwaiz1/cmp_luasnip',
+
+      -- If you want to add a bunch of pre-configured snippets,
+      --    you can use this plugin to help you. It even has snippets
+      --    for various frameworks/libraries/etc. but you will have to
+      --    set up the ones that are useful for you.
+      'rafamadriz/friendly-snippets',
+    },
+    config = function()
+      require('config.nvimcmp')
+    end
+  },
+
+  -- HIGHLIGHT, edit, and navigate code
+  {
+    'nvim-treesitter/nvim-treesitter',
+    build = ':TSUpdate',
+    config = function()
+      require('nvim-treesitter.configs').setup({
+        ensure_installed = {
+	  'bash',
+  	  'dockerfile',
+	  'go',
+	  'html',
+	  'javascript',
+	  'json',
+	  'lua',
+	  'python',
+	  'typescript'
+        },
+        auto_install = true,
+        highlight = { enable = true },
+        indent = { enable = true }
+      })
+    end
+  },
+
+  -- Indent
   {
     'lukas-reineke/indent-blankline.nvim',
-    version = '2.20.4',
-    config = function()
-      require 'config.indent_blankline'
-    end
+    main = 'ibl',
+    opts = {}
   },
+
+   -- Adds git related signs to the gutter, as well as utilities for managing changes
   {
-    'ThePrimeagen/vim-be-good'
+    'lewis6991/gitsigns.nvim',
+    opts = {
+      signs = {
+        add = { text = '+' },
+        change = { text = '~' },
+      },
+    },
+  },
+
+  -- statusline
+  {
+    'nvim-lualine/lualine.nvim',
+    dependencies = {
+      'nvim-tree/nvim-web-devicons'
+    },
+    opts = {
+      options = {
+        disabled_filetypes = { 'NvimTree' }
+      }
+    }
+  },
+
+  -- lazygit
+  {
+    'kdheepak/lazygit.nvim',
+    dependencies =  {
+      'nvim-telescope/telescope.nvim',
+      'nvim-lua/plenary.nvim'
+    },
+    config = function()
+      require('telescope').load_extension('lazygit')
+      vim.keymap.set('n', '<leader>gg', '<Cmd>LazyGit<CR>', { desc = 'Lazy[G]it', silent = true })
+    end,
+  },
+
+  -- Autopairs
+  {
+    'windwp/nvim-autopairs',
+    event = 'InsertEnter',
+    config = true
+  },
+
+  -- notifications
+  {
+    'rcarriga/nvim-notify'
+  },
+
+  -- workflow practices
+  {
+    'm4xshen/hardtime.nvim',
+    dependencies = {
+      'MunifTanjim/nui.nvim',
+      'nvim-lua/plenary.nvim'
+    },
+    opts = {
+      max_count = 5
+    }
+  },
+
+  -- tabs
+  {
+    'akinsho/bufferline.nvim',
+    version = '*',
+    dependencies = 'nvim-tree/nvim-web-devicons',
+    event = 'BufReadPre',
+    opts = {
+      options = {
+        offsets = {
+          {
+            filetype = 'NvimTree',
+            text = 'Nvim Tree',
+            separator = true,
+            text_align = 'left'
+          }
+        }
+      }
+    }
+  },
+
+  -- debug
+  {
+    'mfussenegger/nvim-dap',
+    config = function()
+      require('config.dap')
+    end,
+    dependencies = {
+      {
+        'microsoft/vscode-js-debug',
+        build = 'npm install --legacy-peer-deps --no-save && npx gulp vsDebugServerBundle && rm -rf out && mv dist out',
+        version = '1.*'
+      },
+      {
+        'mxsdev/nvim-dap-vscode-js',
+        config = function()
+          require('dap-vscode-js').setup({
+                        -- Path of node executable. Defaults to $NODE_PATH, and then "node"
+            -- node_path = "node",
+
+            -- Path to vscode-js-debug installation.
+            debugger_path = vim.fn.resolve(vim.fn.stdpath("data") .. "/lazy/vscode-js-debug"),
+
+            -- Command to use to launch the debug server. Takes precedence over "node_path" and "debugger_path"
+            -- debugger_cmd = { "js-debug-adapter" },
+
+            -- which adapters to register in nvim-dap
+            adapters = {
+              "chrome",
+              "pwa-node",
+              "pwa-chrome",
+              "pwa-msedge",
+              "pwa-extensionHost",
+              "node-terminal",
+            },
+
+            -- Path for file logging
+            -- log_file_path = "(stdpath cache)/dap_vscode_js.log",
+
+            -- Logging level for output to file. Set to false to disable logging.
+            -- log_file_level = false,
+
+            -- Logging level for output to console. Set to false to disable console output.
+            -- log_console_level = vim.log.levels.ERROR,
+          })
+        end
+      },
+      {
+        'rcarriga/nvim-dap-ui',
+        opts = {}
+      },
+      {
+        'theHamsta/nvim-dap-virtual-text',
+        opts = {}
+      }
+    }
+  },
+
+  -- show keys
+  {
+    'folke/which-key.nvim',
+    dependencies = {
+      'nvim-tree/nvim-web-devicons'
+    },
+    event = 'VeryLazy',
+    init = function()
+      vim.o.timeout = true
+      vim.o.timeoutlen = 300
+    end,
+    opts = {}
   }
-}
+})
