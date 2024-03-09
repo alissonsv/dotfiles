@@ -13,15 +13,15 @@ require('lazy').setup({
   },
 
   -- tree
-  -- {
-  --   'nvim-tree/nvim-tree.lua',
-  --   dependencies = {
-  --     'nvim-tree/nvim-web-devicons'
-  --   },
-  --   config = function()
-  --     require('config.nvimtree')
-  --   end
-  -- },
+  {
+    'nvim-tree/nvim-tree.lua',
+    dependencies = {
+      'nvim-tree/nvim-web-devicons'
+    },
+    config = function()
+      require('config.nvimtree')
+    end
+  },
 
   -- comment
   {
@@ -33,7 +33,7 @@ require('lazy').setup({
   {
     'nvim-telescope/telescope.nvim',
     event = 'VeryLazy',
-    branch = '0.1.x',
+    -- branch = '0.1.x',
     dependencies = {
       'nvim-lua/plenary.nvim',
       'nvim-telescope/telescope-ui-select.nvim',
@@ -298,5 +298,15 @@ require('lazy').setup({
       vim.o.timeoutlen = 300
     end,
     opts = {}
+  },
+
+  {
+    'folke/zen-mode.nvim',
+    opts = {}
+  },
+
+  {
+    'wakatime/vim-wakatime',
+    lazy = false
   }
 })

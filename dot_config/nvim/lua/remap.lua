@@ -24,13 +24,17 @@ vim.keymap.set('n', '<F12>', function() require('dap').step_out() end)
 -- F17 = <S-F5>
 vim.keymap.set('n', '<F17>', function() require('dap').disconnect() require('dap').close() end)
 
+vim.keymap.set('n', '<leader>ldi', '<cmd>lua vim.diagnostic.open_float()<cr>', { desc = 'Open D[i]agnostic'})
+vim.keymap.set('n', '<leader>ldn', '<cmd>lua vim.diagnostic.goto_next()<cr>', { desc = 'Go to [N]ext'})
+vim.keymap.set('n', '<leader>ldp', '<cmd>lua vim.diagnostic.goto_prev()<cr>', { desc = 'Go to [P]rev'})
+
 -- file browser
-vim.api.nvim_set_keymap(
-  'n',
-  '<leader>e',
-  ':Telescope file_browser path=%:p:h select_buffer=true<CR>',
-  { noremap = true, desc = 'Telescope File Browser', silent = true }
-)
+-- vim.api.nvim_set_keymap(
+--   'n',
+--   '<leader>e',
+--   ':Telescope file_browser<CR>',
+--   { noremap = true, desc = 'Telescope File Browser', silent = true }
+-- )
 
 -- Highlight when yanking (copying) text
 --  Try it with `yap` in normal mode

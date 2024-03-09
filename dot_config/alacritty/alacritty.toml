@@ -3,5 +3,6 @@ TERM = "xterm-256color"
 
 [font]
 size = 10.0
-family = "JetBrainsMono Nerd Font"
 
+[font.normal]
+family = "JetBrains Mono"

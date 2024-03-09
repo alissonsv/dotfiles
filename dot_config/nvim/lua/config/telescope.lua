@@ -2,18 +2,38 @@ local fb_actions = require('telescope._extensions.file_browser.actions')
 local actions = require('telescope.actions')
 
 require('telescope').setup({
+  defaults = {
+    wrap_results = true,
+    line_width = 900,
+    theme = 'center',
+    sorting_strategy = 'ascending',
+    layout_config = {
+      horizontal = {
+        prompt_position = 'top',
+        preview_width = 0.6
+      },
+      preview_cutoff = 120
+    }
+  },
   extensions = {
     ['ui-select'] = {
       require('telescope.themes').get_dropdown()
     },
     file_browser = {
       initial_mode = 'normal',
+      grouped = true,
+      hidden = {
+        file_browser = true,
+        folder_browser = true
+      },
+      dir_icon = '',
       mappings = {
         n = {
           h = fb_actions.goto_parent_dir,
-          k = actions.move_selection_worse,
-          j = actions.move_selection_better,
+          j = actions.move_selection_worse,
+          k = actions.move_selection_better,
           l = actions.select_default, -- action for going into directories and opening files
+          t = fb_actions.change_cwd
         }
       }
     }

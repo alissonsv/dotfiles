@@ -29,5 +29,9 @@ require('nvim-tree').setup({
     enable = true,
     ignore = false
   },
-  on_attach = on_attach
+  on_attach = on_attach,
+  update_focused_file = {
+    enable = true,
+    update_cwd = true
+  }
 })
