@@ -1,14 +1,18 @@
 -- clear highlight
 vim.keymap.set('n', '<leader>h', '<cmd>nohlsearch<CR>')
 
--- Keybinds to make split navigation easier.
---  Use CTRL+<hjkl> to switch between windows
---
+vim.keymap.set("n", "<C-d>", "<C-d>zz")
+vim.keymap.set("n", "<C-u>", "<C-u>zz")
+
 --  See `:help wincmd` for a list of all window commands
 vim.keymap.set('n', '<C-h>', '<C-w><C-h>', { desc = 'Move focus to the left window' })
 vim.keymap.set('n', '<C-l>', '<C-w><C-l>', { desc = 'Move focus to the right window' })
 vim.keymap.set('n', '<C-j>', '<C-w><C-j>', { desc = 'Move focus to the lower window' })
 vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
+
+--resize
+vim.keymap.set('n', '+', '<cmd>vertical resize +5<cr>', { desc = 'Increase window size' })
+vim.keymap.set('n', '-', '<cmd>vertical resize -5<cr>', { desc = 'Decrease window size' })
 
 -- buffers
 vim.keymap.set('n', '<leader>bn', '<cmd>bnext<cr>')
