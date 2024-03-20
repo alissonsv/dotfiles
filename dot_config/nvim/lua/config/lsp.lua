@@ -4,7 +4,7 @@
 --    function will be executed to configure the current buffer
 vim.api.nvim_create_autocmd('BufWritePre', {
   pattern = { '*.js', '*.ts' },
-  command = 'EslintFixAll'
+  command = 'silent! EslintFixAll'
 })
 
 vim.api.nvim_create_autocmd('LspAttach', {
