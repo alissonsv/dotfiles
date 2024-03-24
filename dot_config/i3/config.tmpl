@@ -202,6 +202,12 @@ bindsym XF86WWW exec shutdown now
 bindsym Print exec --no-startup-id flameshot screen -n 1-2 -p Pictures/screenshots
 bindsym XF86Mail exec deepin-calculator
 
+{{- if eq .chezmoi.hostname "wind" }}
+# brightness configs
+bindsym XF86MonBrightnessUp exec --no-startup-id brightnessctl set +10%
+bindsym XF86MonBrightnessDown exec --no-startup-id brightnessctl set 10%-
+{{- end }}
+
 #screenshot with GUI
 bindsym $mod+s exec --no-startup-id flameshot gui
  
