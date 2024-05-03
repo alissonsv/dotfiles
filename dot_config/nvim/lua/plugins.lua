@@ -277,7 +277,10 @@ require('lazy').setup({
       },
       {
         'rcarriga/nvim-dap-ui',
-        opts = {}
+        opts = {},
+        dependencies = {
+          'nvim-neotest/nvim-nio'
+        }
       },
       {
         'theHamsta/nvim-dap-virtual-text',
