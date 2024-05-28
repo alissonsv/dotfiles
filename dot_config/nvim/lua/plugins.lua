@@ -6,9 +6,18 @@ require('lazy').setup({
   -- theme
   {
     'projekt0n/github-nvim-theme',
+    -- priority = 1000,
+    -- config = function()
+    --   vim.cmd('colorscheme github_dark_dimmed')
+    -- end
+  },
+  {
+    "folke/tokyonight.nvim",
+    lazy = false,
     priority = 1000,
+    opts = {},
     config = function()
-      vim.cmd('colorscheme github_dark_dimmed')
+      vim.cmd('colorscheme tokyonight')
     end
   },
 
@@ -342,5 +351,13 @@ require('lazy').setup({
         return { 'treesitter', 'indent' }
       end
     }
+  },
+
+  -- Markdown preview
+  {
+    "iamcco/markdown-preview.nvim",
+    cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
+    ft = { "markdown" },
+    build = function() vim.fn["mkdp#util#install"]() end,
   }
 })
