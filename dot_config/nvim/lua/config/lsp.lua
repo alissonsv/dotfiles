@@ -2,6 +2,7 @@
 --    That is to say, every time a new file is opened that is associated with
 --    an lsp (for example, opening `main.rs` is associated with `rust_analyzer`) this
 --    function will be executed to configure the current buffer
+-- client.server_capabilities.documentFormattingProvider = true
 vim.api.nvim_create_autocmd('BufWritePre', {
   pattern = { '*.js', '*.ts' },
   command = 'silent! EslintFixAll'
@@ -89,11 +90,13 @@ vim.api.nvim_create_autocmd('LspAttach', {
 --  When you add nvim-cmp, luasnip, etc. Neovim now has *more* capabilities.
 --  So, we create new capabilities with nvim cmp, and then broadcast that to the servers.
 local capabilities = vim.lsp.protocol.make_client_capabilities()
+capabilities.textDocument.completion.completionItem.snippetSupport = true
 capabilities = vim.tbl_deep_extend('force', capabilities, require('cmp_nvim_lsp').default_capabilities())
 
 local servers = {
   tsserver = {},
   eslint = {},
+  jsonls = {}
 }
 
 require('mason').setup()
@@ -115,6 +118,22 @@ require('mason-lspconfig').setup({
     function(server_name)
       local server = servers[server_name] or {}
       require('lspconfig')[server_name].setup({})
+    end,
+    ["jsonls"] = function()
+      capabilities.textDocument.completion.completionItem.snippetSupport = true
+      require('lspconfig').jsonls.setup({
+        settings = {
+          json = {
+            schemas = {
+              {
+                fileMatch = { 'package.json' },
+                url = 'https://json.schemastore.org/package.json'
+              }
+            }
+          }
+        },
+        capabilities = capabilities
+      })
     end
   }
 })

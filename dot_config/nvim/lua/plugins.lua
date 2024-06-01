@@ -334,8 +334,8 @@ require('lazy').setup({
         return { timeout_ms = 500, lsp_fallback = true }
       end,
       formatters_by_ft = {
-        javascript = { 'prettier' },
-        typescript = { 'prettier' }
+        javascript = { { 'prettierd', 'prettier' } },
+        typescript = { { 'prettierd', 'prettier' } }
       }
     }
   },
