@@ -2,7 +2,9 @@ export ZSH="/home/alisson/.oh-my-zsh"
 ZSH_THEME="agnoster"
 DEFAULT_USER="alisson"
 
-plugins=(docker git git-commit colored-man-pages asdf gh)
+plugins=(aliases docker colored-man-pages asdf gh eza)
+
+zstyle ':omz:plugins:eza' 'dirs-first' yes
 
 source $ZSH/oh-my-zsh.sh
 
