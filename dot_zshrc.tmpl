@@ -4,8 +4,8 @@ eval "$(starship init zsh)"
 # https://wiki.archlinux.org/title/SSH_keys
 eval $(keychain --eval --quiet id_rsa)
 
-# asdf
-. "$HOME/.asdf/asdf.sh"
+# mise
+eval "$(~/.local/bin/mise activate zsh)"
 
 source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 
