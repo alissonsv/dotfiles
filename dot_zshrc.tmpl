@@ -34,6 +34,8 @@ alias gb="gh browse"
 
 # disable case sensitive
 zstyle ':completion:*' matcher-list '' 'm:{a-zA-Z}={A-Za-z}' 'r:|=*' 'l:|=* r:|=*'
+autoload -Uz compinit && compinit
+
 {{- if eq .chezmoi.hostname "fire" }}
 
 # The next line updates PATH for the Google Cloud SDK.
