@@ -6,7 +6,11 @@ import = [
 TERM = "xterm-256color"
 
 [font]
+{{- if eq .chezmoi.hostname "wind" }}
+size = 8.0
+{{ else }}
 size = 10.0
+{{ end }}
 
 [font.normal]
 family = "JetBrains Mono Nerd Font"
