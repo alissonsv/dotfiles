@@ -71,9 +71,6 @@ require('lazy').setup({
       -- Automatically install LSPs and related tools to stdpath for neovim
       'williamboman/mason.nvim',
       'williamboman/mason-lspconfig.nvim',
-      -- auto install daps
-      'jay-babu/mason-nvim-dap.nvim',
-      'WhoIsSethDaniel/mason-tool-installer.nvim',
       -- Useful status updates for LSP.
       {
         'j-hui/fidget.nvim',
@@ -87,6 +84,27 @@ require('lazy').setup({
     config = function()
       require('config.lsp')
     end
+  },
+
+  -- DAP
+  {
+    'mfussenegger/nvim-dap',
+    config = function()
+      require('config.dap')
+    end,
+    dependencies = {
+      {
+        'microsoft/vscode-js-debug',
+        build = 'npm install --legacy-peer-deps --no-save && npx gulp vsDebugServerBundle && rm -rf out && mv dist out'
+      },
+      {
+        'rcarriga/nvim-dap-ui',
+        opts = {},
+        dependencies = {
+          'nvim-neotest/nvim-nio'
+        }
+      }
+    }
   },
 
   -- Autocompletion
@@ -133,15 +151,15 @@ require('lazy').setup({
     config = function()
       require('nvim-treesitter.configs').setup({
         ensure_installed = {
-	  'bash',
-  	  'dockerfile',
-	  'go',
-	  'html',
-	  'javascript',
-	  'json',
-	  'lua',
-	  'python',
-	  'typescript'
+          'bash',
+          'dockerfile',
+          'go',
+          'html',
+          'javascript',
+          'json',
+          'lua',
+          'python',
+          'typescript'
         },
         auto_install = true,
         highlight = { enable = true },
@@ -157,7 +175,7 @@ require('lazy').setup({
     opts = {}
   },
 
-   -- Adds git related signs to the gutter, as well as utilities for managing changes
+  -- Adds git related signs to the gutter, as well as utilities for managing changes
   {
     'lewis6991/gitsigns.nvim',
     opts = {
@@ -184,7 +202,7 @@ require('lazy').setup({
   -- lazygit
   {
     'kdheepak/lazygit.nvim',
-    dependencies =  {
+    dependencies = {
       'nvim-telescope/telescope.nvim',
       'nvim-lua/plenary.nvim'
     },
@@ -226,66 +244,6 @@ require('lazy').setup({
     }
   },
 
-  -- debug
-  {
-    'mfussenegger/nvim-dap',
-    config = function()
-      require('config.dap')
-    end,
-    dependencies = {
-      {
-        'microsoft/vscode-js-debug',
-        build = 'npm install --legacy-peer-deps --no-save && npx gulp vsDebugServerBundle && rm -rf out && mv dist out',
-        version = '1.*'
-      },
-      {
-        'mxsdev/nvim-dap-vscode-js',
-        config = function()
-          require('dap-vscode-js').setup({
-                        -- Path of node executable. Defaults to $NODE_PATH, and then "node"
-            -- node_path = "node",
-
-            -- Path to vscode-js-debug installation.
-            debugger_path = vim.fn.resolve(vim.fn.stdpath("data") .. "/lazy/vscode-js-debug"),
-
-            -- Command to use to launch the debug server. Takes precedence over "node_path" and "debugger_path"
-            -- debugger_cmd = { "js-debug-adapter" },
-
-            -- which adapters to register in nvim-dap
-            adapters = {
-              "chrome",
-              "pwa-node",
-              "pwa-chrome",
-              "pwa-msedge",
-              "pwa-extensionHost",
-              "node-terminal",
-            },
-
-            -- Path for file logging
-            -- log_file_path = "(stdpath cache)/dap_vscode_js.log",
-
-            -- Logging level for output to file. Set to false to disable logging.
-            -- log_file_level = false,
-
-            -- Logging level for output to console. Set to false to disable console output.
-            -- log_console_level = vim.log.levels.ERROR,
-          })
-        end
-      },
-      {
-        'rcarriga/nvim-dap-ui',
-        opts = {},
-        dependencies = {
-          'nvim-neotest/nvim-nio'
-        }
-      },
-      {
-        'theHamsta/nvim-dap-virtual-text',
-        opts = {}
-      }
-    }
-  },
-
   -- show keys
   {
     'folke/which-key.nvim',
@@ -309,7 +267,7 @@ require('lazy').setup({
     'wakatime/vim-wakatime',
     lazy = false
   },
-  
+
   -- formatter
   {
     'stevearc/conform.nvim',
@@ -322,8 +280,8 @@ require('lazy').setup({
         return { timeout_ms = 500, lsp_fallback = true }
       end,
       formatters_by_ft = {
-        javascript = { { 'prettierd', 'prettier' } },
-        typescript = { { 'prettierd', 'prettier' } }
+        javascript = { 'prettierd', 'prettier', stop_after_first = true },
+        typescript = { 'prettierd', 'prettier', stop_after_first = true }
       }
     }
   },
