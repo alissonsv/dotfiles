@@ -19,20 +19,23 @@ vim.keymap.set('n', '<C-S-l>', '<cmd>vertical resize -5<cr>', { desc = 'Decrease
 -- buffers
 vim.keymap.set('n', '<leader>bn', '<cmd>bnext<cr>')
 vim.keymap.set('n', '<leader>bb', '<cmd>bprev<cr>')
-vim.keymap.set('n', '<leader>c', '<cmd>bp | sp | bn | bd<cr>', { desc = 'Close current buffer '})
+vim.keymap.set('n', '<leader>c', '<cmd>bp | sp | bn | bd<cr>', { desc = 'Close current buffer ' })
 
 -- debug
-vim.keymap.set('n', '<leader>db', function() require('dap').toggle_breakpoint() end, { desc = 'Set breakpoint'})
+vim.keymap.set('n', '<leader>db', function() require('dap').toggle_breakpoint() end, { desc = 'Set breakpoint' })
 vim.keymap.set('n', '<F5>', function() require('dap').continue() end)
 vim.keymap.set('n', '<F10>', function() require('dap').step_over() end)
 vim.keymap.set('n', '<F11>', function() require('dap').step_into() end)
 vim.keymap.set('n', '<F12>', function() require('dap').step_out() end)
 -- F17 = <S-F5>
-vim.keymap.set('n', '<F17>', function() require('dap').disconnect() require('dap').close() end)
+vim.keymap.set('n', '<F17>', function()
+  require('dap').disconnect()
+  require('dap').close()
+end)
 
-vim.keymap.set('n', '<leader>ldi', '<cmd>lua vim.diagnostic.open_float()<cr>', { desc = 'Open D[i]agnostic'})
-vim.keymap.set('n', '<leader>ldn', '<cmd>lua vim.diagnostic.goto_next()<cr>', { desc = 'Go to [N]ext'})
-vim.keymap.set('n', '<leader>ldp', '<cmd>lua vim.diagnostic.goto_prev()<cr>', { desc = 'Go to [P]rev'})
+vim.keymap.set('n', '<leader>ldi', '<cmd>lua vim.diagnostic.open_float()<cr>', { desc = 'Open D[i]agnostic' })
+vim.keymap.set('n', '<leader>ldn', '<cmd>lua vim.diagnostic.goto_next()<cr>', { desc = 'Go to [N]ext' })
+vim.keymap.set('n', '<leader>ldp', '<cmd>lua vim.diagnostic.goto_prev()<cr>', { desc = 'Go to [P]rev' })
 
 -- file browser
 -- vim.api.nvim_set_keymap(
