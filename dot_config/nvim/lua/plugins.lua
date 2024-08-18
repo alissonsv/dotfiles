@@ -322,8 +322,8 @@ require('lazy').setup({
         return { timeout_ms = 500, lsp_fallback = true }
       end,
       formatters_by_ft = {
-        javascript = { { 'biome', 'prettierd', 'prettier' } },
-        typescript = { { 'biome', 'prettierd', 'prettier' } }
+        javascript = { 'biome', 'prettierd', 'prettier', stop_after_first = true },
+        typescript = { 'biome', 'prettierd', 'prettier', stop_after_first = true }
       }
     }
   },
