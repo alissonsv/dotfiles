@@ -19,7 +19,10 @@ vim.keymap.set('n', '<C-S-l>', '<cmd>vertical resize -5<cr>', { desc = 'Decrease
 -- buffers
 vim.keymap.set('n', '<leader>bn', '<cmd>bnext<cr>')
 vim.keymap.set('n', '<leader>bb', '<cmd>bprev<cr>')
-vim.keymap.set('n', '<leader>c', '<cmd>bp | sp | bn | bd<cr>', { desc = 'Close current buffer ' })
+vim.keymap.set('n', '<leader>cc', '<cmd>bp | sp | bn | bd<cr>', { desc = 'Close current buffer ' })
+vim.keymap.set('n', '<leader>ce',
+  ":execute \"normal mX\" | %bd | execute \"normal 'X\" | bdelete # | delmarks X<cr>",
+  { desc = 'Close all buffers, except the current' })
 
 -- debug
 vim.keymap.set('n', '<leader>db', function() require('dap').toggle_breakpoint() end, { desc = 'Set breakpoint' })

@@ -1,4 +1,4 @@
-vim.api.nvim_set_keymap("n", "<leader>e", ":NvimTreeToggle<cr>", {silent = true, noremap = true})
+vim.api.nvim_set_keymap("n", "<leader>e", ":NvimTreeToggle<cr>", { silent = true, noremap = true })
 
 local function on_attach(bufnr)
   local api = require 'nvim-tree.api'
@@ -21,13 +21,16 @@ local function on_attach(bufnr)
   api.config.mappings.default_on_attach(bufnr)
 
   vim.keymap.set("n", "l", edit_or_open, opts("Edit Or Open"))
-  vim.keymap.set("n", "h", collapse_dirs,        opts("Close"))
+  vim.keymap.set("n", "h", collapse_dirs, opts("Close"))
 end
 
 require('nvim-tree').setup({
   git = {
     enable = true,
     ignore = false
+  },
+  filters = {
+    custom = { "__pycache__" }
   },
   on_attach = on_attach,
   update_focused_file = {
