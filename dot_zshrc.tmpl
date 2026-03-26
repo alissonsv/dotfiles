@@ -5,13 +5,14 @@ eval "$(starship init zsh)"
 eval $(keychain --eval --quiet id_rsa)
 
 # mise
-eval "$(~/.local/bin/mise activate zsh)"
+eval "$(mise activate zsh)"
 
 source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 
 export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
 export EDITOR=nvim
+export ELECTRON_OZONE_PLATFORM_HINT=wayland
 
 bindkey  "^[[H"   beginning-of-line
 bindkey "^[[1~" beginning-of-line
@@ -26,6 +27,7 @@ alias ls="eza --group-directories-first"
 alias l="ls -al --git"
 alias vim=nvim
 alias cz=chezmoi
+alias c=code
 
 # git aliases
 alias g=git
@@ -47,3 +49,8 @@ if [ -f '/home/SHARED/SHARED/Downloads/Linux/google-cloud-sdk/path.zsh.inc' ]; t
 # The next line enables shell command completion for gcloud.
 if [ -f '/home/SHARED/SHARED/Downloads/Linux/google-cloud-sdk/completion.zsh.inc' ]; then . '/home/SHARED/SHARED/Downloads/Linux/google-cloud-sdk/completion.zsh.inc'; fi
 {{- end}}
+
+export ANDROID_HOME=$HOME/Android/Sdk
+export PATH=$PATH:$ANDROID_HOME/emulator
+export PATH=$PATH:$ANDROID_HOME/platform-tools
+export PATH="$HOME/.local/bin:$PATH"
