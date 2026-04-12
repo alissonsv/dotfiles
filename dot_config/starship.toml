@@ -1,5 +1,7 @@
 format = """
-[░▒▓](#a3aed2)\
+[█](bg:#6f85c8 fg:#6f85c8)\
+[█](bg:#879bd0 fg:#879bd0)\
+[█](bg:#a3aed2 fg:#a3aed2)\
 [  ](bg:#a3aed2 fg:#394260)\
 $hostname\
 [](bg:#769ff0 fg:#a3aed2)\
