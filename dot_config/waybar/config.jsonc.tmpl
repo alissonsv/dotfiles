@@ -20,6 +20,9 @@
         "network",
         "pulseaudio",
         "tray",
+        {{- if eq .chezmoi.hostname "wind" }}
+        "battery",
+        {{- end }}
         "custom/power"
     ],
     "hyprland/workspaces": {
@@ -132,7 +135,7 @@
         }
     },
     "network": {
-        "interface": "enp5s0", // (Optional) To force the use of this interface
+        // "interface": "enp5s0", // (Optional) To force the use of this interface
         "format-wifi": "{essid} ({signalStrength}%) ",
         "family": "ipv4",
         "format-ethernet": "  {ipaddr}",
