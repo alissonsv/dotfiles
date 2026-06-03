@@ -277,6 +277,8 @@ bind = , XF86AudioPause, exec, playerctl play-pause
 bind = , XF86AudioNext, exec, playerctl next
 bind = , XF86AudioPrev, exec, playerctl previous
 bind = , XF86Mail, exec, galculator
+bind = ,XF86MonBrightnessDown, exec, brightnessctl s 10%-
+bind = ,XF86MonBrightnessUp, exec, brightnessctl s +10%
 bind = CTRL, Print, exec, grim -g "$(slurp)" - | swappy -f -
 bind = $mainMod, Print, exec, sh -c 'FILE="$HOME/Pictures/$(date +%Y-%m-%d_%H-%M-%S.png)"; grim -g "$(slurp)" "$FILE" && notify-send -i camera-photo -t 2000 "Screenshot" "Área salva em $FILE"'
 bind = , Print, exec, sh -c 'MON=$(hyprctl activeworkspace -j | jq -r ".monitor"); FILE="$HOME/Pictures/$(date +%Y-%m-%d_%H-%M-%S)_${MON}.png"; grim -o "$MON" "$FILE" && notify-send -i camera-photo -t 2000 "Screenshot" "Salvo em $FILE"'
